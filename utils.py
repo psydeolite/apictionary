@@ -18,10 +18,17 @@ def define(query):
 #takes: one word from definition
 #returns: image url 
 def get_pict(word):
+    #searching for photo
     url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&format=json&media=photos&tags=%s&text=%s"
     key = "e0e0c259e7e2a1f07f6c8e6a74579f12"
     url = url % (key, word, word)
+
+    photo_id = ""
+    secret = ""
     
+    #getting photo info (like url) by id
+    url = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=%s&photo_id=%s&secret=%s"
+    url = url % (key, photo_id, secret)
 
     
 #takes: the search query
