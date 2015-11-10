@@ -28,7 +28,6 @@ def define(query):
                 defs.append(res["senses"][0]["definition"][0])
             except:
                 pass
-    print defs
     return defs
 
 
