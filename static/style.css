@@ -1,0 +1,24 @@
+ul  {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    float: left;
+    width:229px;
+    background-color:yellow;
+}
+
+a {
+    width:229px;
+    display:block;
+    text-align: center;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+	     background-color:red;
+	 }
+
+	 
