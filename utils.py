@@ -3,14 +3,14 @@ import json
 import xmltodict
 import random
 
+stop_words = []
 
 def get_stop_words():
-    stop_words = []
+    global stop_words
     file = open("static/stop-word-list.csv", 'r')
     for line in file:
         stop_words += line.split(", ")
     file.close()
-    return stop_words
     
 
 def define(query):
@@ -117,12 +117,11 @@ def get_pict(word):
     result = request.read()
     r = json.loads(result)
 
-    #bound = 30
-    #if len(r["photos"]) < bound:
-        #bound =  len(r["photos"]["total"])
+    bound = 30
+    if len(r["photos"]) < bound:
+        bound =  len(r["photos"]["total"])
 
-    #index = random.randrange(0, bound)
-    index = 0
+    index = random.randrange(0, bound)
     pic = word
     try:
         pic = r["photos"]["photo"][index]["url_q"]
@@ -143,8 +142,10 @@ def pictify(query):
 
     returns: a list of definitions with image urls
     """
+    if not stop_words:
+        get_stop_words()
+        
     d = define(query)
-    stop_words = get_stop_words()
     defs = []
     for definition in d:
         def_list = definition.split()
