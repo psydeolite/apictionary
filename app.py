@@ -4,7 +4,12 @@ import utils
 
 app = Flask(__name__)
 
-
+@app.route("/t")
+@app.route("/t/<tag>")
+def t(tag = "rose cut"):
+    urls = utils.pictify(tag)
+    return render_template("results.html", urls = urls)
+    
 
 
 
