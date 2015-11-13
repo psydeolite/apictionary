@@ -33,6 +33,7 @@ def define(query):
     out = json.loads(json.dumps(r))
 
     #print result
+    #print "\n"
     #print out
 
     defs = []
@@ -82,16 +83,20 @@ def get_def(res, query):
             len(res["@id"]) - len(query) <= 3 and 
             "def" in res):
         d = res["def"]["dt"]
-        print d
         
         if isinstance(d, unicode):
             defs.append(str(d)[1:])
             return defs
-       
+
         for entry in d:
-            if (isinstance(d[entry], unicode) and
+            if (isinstance(d, list) and
+                    isinstance(entry, unicode):
+                defs.append(str(entry)[1:])
+
+            elif (isinstance(d, dict)):
+                if (isinstance(d[entry], unicode) and
                     is_legit_def(d[entry], query)):
-                defs.append(str(d[entry])[1:])
+                    defs.append(str(d[entry])[1:])
 
             elif isinstance(d[entry], dict):
                 try:
@@ -188,4 +193,5 @@ def pictify(query):
 #print get_pict("violent")
 #print pictify("garrulous")
 
+print define("garrulous")
 
