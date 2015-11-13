@@ -6,6 +6,9 @@ import random
 stop_words = []
 
 def get_stop_words():
+    """
+    reads stop-words into dictionary from static
+    """
     global stop_words
     file = open("static/stop.csv", 'r')
     for line in file:
@@ -65,7 +68,6 @@ def remove_stupid_tags(text):
     new = new.replace("</cat>", "")
     new = new.replace("<ca>", ", ")
     new = new.replace("</ca>", "")
-    
     return new
     
     
@@ -90,21 +92,17 @@ def get_def(res, query):
 
         for entry in d:
             if (isinstance(d, list) and
-                    isinstance(entry, unicode):
+                    isinstance(entry, unicode)):
                 defs.append(str(entry)[1:])
 
             elif (isinstance(d, dict)):
-                if (isinstance(d[entry], unicode) and
-                    is_legit_def(d[entry], query)):
-                    defs.append(str(d[entry])[1:])
+                 if (isinstance(d[entry], unicode) and
+                         is_legit_def(d[entry], query)):
+                     defs.append(str(d[entry])[1:])
 
-            elif isinstance(d[entry], dict):
-                try:
-                    if is_legit_def(d[entry["#text"]], query):
-                        defs.append(str(d[entry["#text"]])[1:])
-                except:
-                    pass
-          
+                 elif ("#text" in d[entry] and
+                         is_legit_def(d[entry["#text"]], query)):
+                     defs.append(str(d[entry["#text"]])[1:])
     return defs
 
 
@@ -183,10 +181,10 @@ def pictify(query):
 
 
 #Testing     
-#print define("rose cut")
-#print define("spontaneous combustion")
-#print define("platypus")
-#print define("gallows")
+print define("rose cut")
+print define("spontaneous combustion")
+print define("platypus")
+print define("gallows")
 #print define("chain saw")
 #print define("centrifugal force")
 
