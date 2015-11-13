@@ -1,8 +1,13 @@
 {% block head %}
+<head><link rel="stylesheet" type="text/css" href="../static/style.css"></head>
 <h1> APICTIONARY </h1>
 <ul>
-  <li><input type="text" name="word"></li>
+  <form>
+    <li><input type="text" name="word"><input type="submit" value="search"</li>
+					      </form>
   <li><a href="/">Home</a></li>
   <li><a href="/result">Result(test)</a></li>
 </ul>
+<br>
+<br>
 {% endblock head %}
