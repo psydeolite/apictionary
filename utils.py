@@ -214,5 +214,5 @@ def pictify(word):
 #print define("pitato")
 #print define("ninja")
 
-#print pictify("spontaneous combustion")
+print pictify("spontaneous combustion")
 
