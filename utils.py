@@ -22,6 +22,8 @@ def define(query):
     """
     Runs an api search on a string query and returns the definition(s) of the word as a dictionary
 
+    calls: get_def, remove_stupid_tags, get_suggestions
+
     key: "definitions"     value: a list of definitions
     key: "suggestions"     value: a list of suggestions if no matches are found     """    
     q = query.replace(" ", "+")
@@ -155,7 +157,11 @@ def get_pic(word, def_list, i):
 
     
 
-def get_pics(def_list):  
+def get_pics(def_list):
+    """
+    Replaces words in list def_list with image urls
+    calls: get_pic
+    """
     threads = [None] * len(def_list)
     
     for i in range(len(def_list)):
@@ -170,8 +176,8 @@ def get_pics(def_list):
     
 def pictify(word):
     """  
-    Replaces the words in the dictionary d with image urls
-
+    Defines string words and replaces the words in the dictionary with image urls
+    calls: define, get_pics
     returns: a dictionary of definitions with image urls
 
     key: "definitions"     value: a list of definitions
