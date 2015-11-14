@@ -4,6 +4,14 @@ import utils
 
 app = Flask(__name__)
 
+@app.route("/")
+@app.route("/home", methods=["GET"])
+def home():
+    return render_template("/home.html")
+
+@app.route("/result")
+def result():
+    return render_template("/result_page.html")
 
 
 
