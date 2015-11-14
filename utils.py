@@ -47,6 +47,8 @@ def define(query):
         entries = out["entry_list"]["entry"]
         if isinstance(entries, list):
             for res in entries:
+                if len(defs) >= 4:
+                    break
                 defs += get_def(res, query)
         elif isinstance(entries, dict):
             defs = get_def(entries, query)
@@ -102,6 +104,10 @@ def get_def(res, query):
             return defs
 
         for entry in d:
+            print len(defs)
+            if len(defs) >= 4:
+                break
+            
             if (isinstance(d, list) and
                     isinstance(entry, unicode)):
                 d_append(str(entry)[1:])
@@ -216,3 +222,4 @@ def pictify(word):
 
 #print pictify("spontaneous combustion")
 
+#print define("family")
