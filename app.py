@@ -11,7 +11,7 @@ def home():
 
 @app.route("/result")
 def result():
-    return render_template("/result_page.html")
+    return render_template("/result_page.html", pics=utils.pictify())
 
 
 

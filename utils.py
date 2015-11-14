@@ -187,6 +187,6 @@ def pictify(query):
 #print define("centrifugal force")
 
 #print get_pict("violent")
-print pictify("garrulous")
+#print pictify("garrulous")
 
 
