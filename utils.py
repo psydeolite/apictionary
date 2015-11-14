@@ -29,6 +29,7 @@ def define(query):
     result = request.read()
 
     result = remove_stupid_tags(result)
+    print result
     r = xmltodict.parse(result)
     out = json.loads(json.dumps(r))
 
@@ -186,6 +187,6 @@ def pictify(query):
 #print define("centrifugal force")
 
 #print get_pict("violent")
-#print pictify("garrulous")
+print pictify("garrulous")
 
 
