@@ -1,3 +1,4 @@
+from threading import Thread
 import urllib2
 import json
 import xmltodict
@@ -19,11 +20,7 @@ def get_stop_words():
 
 def define(query):
     """
-    Runs an api search on a word and returns the definition(s) of the word
-
-    params: query, a string
-
-    returns: a dictionary of definitions
+    Runs an api search on a string query and returns the definition(s) of the word as a dictionary
 
     key: "definitions"     value: a list of definitions
     key: "suggestions"     value: a list of suggestions if no matches are found     """    
@@ -133,61 +130,67 @@ def is_legit_def(definition, word):
 
     
     
-def get_pict(word):
+def get_pic(word, def_list, i):
     """
     Runs a word through a picture search and returns an image url as a string
     """
-    url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&format=json&nojsoncallback=1&media=photos&text=%s&sort=relevance&extras=url_q"
-    key = "e0e0c259e7e2a1f07f6c8e6a74579f12"
-    url = url % (key, word)
-    request = urllib2.urlopen(url)
-    result = request.read()
-    r = json.loads(result)
+    pic = word.strip()
+    if (pic not in stop_words and
+          len(pic) > 2):
 
-    #bound =  len(r["photos"]["total"])
+        url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&format=json&nojsoncallback=1&media=photos&text=%s&sort=relevance&extras=url_q"
+        key = "e0e0c259e7e2a1f07f6c8e6a74579f12"
+        
+        url = url % (key, pic)
+        request = urllib2.urlopen(url)
+        result = request.read()
+        r = json.loads(result)
 
-    #index = random.randrange(0, bound)
-    index = 0
-    pic = word
-    try:
-        pic = r["photos"]["photo"][index]["url_q"]
-    except:
-        pass
-    return pic 
+        try:
+            pic = r["photos"]["photo"][0]["url_q"]
+        except:
+            pass
+        
+    def_list[i] = pic
+
     
 
+def get_pics(def_list):  
+    threads = [None] * len(def_list)
     
+    for i in range(len(def_list)):
+        threads[i] = Thread(target = get_pic,
+                            args = (def_list[i], def_list, i))
 
-def pictify(d):
+    [t.start() for t in threads]    
+    [t.join() for t in threads]
+    
+    return def_list
+
+    
+def pictify(word):
     """  
-    Replaces the words in the definition with image urls
-
-    params: d, a dictionary of definitions or suggestions
+    Replaces the words in the dictionary d with image urls
 
     returns: a dictionary of definitions with image urls
 
     key: "definitions"     value: a list of definitions
     key: "suggestions"     value: a list of suggestions if no matches are found
     """
+    if not stop_words:
+        get_stop_words()
+
+    d = define(word)
+    
     if "definitions" in d:
-        if not stop_words:
-            get_stop_words()
-            
         defs = []
-        d_append = defs.append
+        
         for definition in d["definitions"]:
             def_list = definition.split()
-            words = []
-            w_append = words.append
-            for word in def_list:
-                word = word.strip()
-            
-                if (word not in stop_words and
-                    len(word) > 2):
-                    word = get_pict(word)
-                w_append(word)
-            d_append(words)
+            defs.append(get_pics(def_list))
+
         d["definitions"] = defs
+            
     return d
 
 
@@ -200,24 +203,10 @@ def pictify(d):
 #print define("chain saw")
 #print define("centrifugal force")
 
-#print get_pict("potato")
-
+#print get_pic("potato")
+#print get_pic("ninja")
 #print define("pitato")
 #print define("ninja")
-#d = define("ninja")
-#print d
-#print pictify(d)
 
-"""
-print get_pict("potato")
-print get_pict("potato")
-print get_pict("potato")
-print get_pict("potato")
-print get_pict("potato")
-print get_pict("potato")
-print get_pict("potato")
-print get_pict("potato")
-print get_pict("potato")
-print get_pict("potato")
-"""
+#print pictify("spontaneous combustion")
 
