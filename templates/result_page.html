@@ -1,7 +1,16 @@
 {% include "header.html" %}
-Here is where we'd include results.
+  Here is where we'd include results.
 
-{% for y in comments %}
-<>
+  {% for defs in pics["definitions"] %}
+    <br>Definition:<br>
 
-{% endfor %}
+    {% for url in defs %}
+      
+      {% if "http" in url %}
+        <img src={{url}}>
+      {% else %}
+	{{url}}
+
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
