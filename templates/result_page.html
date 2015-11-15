@@ -1,4 +1,9 @@
+
+
+
 {% include "header.html" %}
+
+
 
 <script>
 function showDef(n) {
@@ -8,6 +13,7 @@ function showDef(n) {
     document.getElementById("def"+n).style.display = "";
 }
 </script>
+
 
 
 {% if err %}
@@ -32,9 +38,9 @@ function showDef(n) {
 {% for url in defs %}
 
 {% if "http" in url %}
-<img src={{url}}>
+<img style="vertical-align:middle;margin:10px;" src={{url}}>
 {% else %}
-{{url}}
+<text>{{url}}</text>
 
 {% endif %}
 {% endfor %}
