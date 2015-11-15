@@ -11,6 +11,7 @@ def home():
 
 @app.route("/result", methods=["GET"])
 def result():
+    print request
     return render_template("/result_page.html", pics=utils.pictify(request.args.get("word")))
 
 
