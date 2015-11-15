@@ -1,10 +1,11 @@
-ul  {
+ul[class="header"]  {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
-li {
+li[class="header"] {
     float: left;
     width:229px;
     background-color:yellow;
