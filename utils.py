@@ -75,7 +75,7 @@ def get_suggestions(d):
     """
     sugg = []
     if isinstance(d["suggestion"], unicode):
-        sugg[0] = d["suggestion"]
+        sugg.append(str(d["suggestion"]))
     elif isinstance(d["suggestion"], list):
         for word in d["suggestion"]:
             sugg.append(str(word))
