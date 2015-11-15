@@ -1,2 +1,42 @@
 {% include "header.html" %}
-Here is where we'd include results.
+<script>
+  function showDef(n) {
+    if (document.getElementById("def"+n).style.display == "")
+      document.getElementById("def"+n).style.display = "none";
+    else
+      document.getElementById("def"+n).style.display = "";
+  }
+</script>
+
+{% if "definitions" in pics.keys() %}
+
+  <h2>Results:</h2>
+
+  {% for defs in pics["definitions"] %}
+  
+  {% set index=pics["definitions"].index(defs)+1 %}
+  <br>
+  <h3> Definition {{index}}:
+    <input type="button" value="Show definition" name="def{{pics["definitions"].index(defs)+1}}" onclick="showDef({{index}})"></input>
+    <div id="def{{index}}" style="display:none;">{{defins[pics["definitions"].index(defs)]}}</div>
+  </h3>
+    {% for url in defs %}
+      
+      {% if "http" in url %}
+        <img src={{url}}>
+      {% else %}
+	{{url}}
+
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+{% else %}
+
+  <h2>This word was not found. Some suggestions:</h2>
+  <ul class="">
+  {% for suggs in pics["suggestions"] %}
+    <li class=""><a href={{"?word="+suggs}}>{{suggs}}</a></li><br>
+  {% endfor %}
+  </ul>
+{% endif %}

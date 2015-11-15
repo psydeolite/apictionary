@@ -1,24 +1,44 @@
-ul  {
+ul[class="header"]  {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    width: 120%;
+    overflow: hidden;
 }
 
-li {
+li[class="header"] {
     float: left;
-    width:229px;
-    background-color:yellow;
 }
 
-a {
-    width:229px;
-    display:block;
-    text-align: center;
-    text-decoration: none;
-}
+a:link, a:visited {
+	    display: block;
+	    width: 290px;
+	    color: white;
+	    background-color: black;
+	    text-align: center;
+	    padding: 10px;
+	    text-decoration: none;
+	  
+	}
 
 a:hover, a:active {
-	     background-color:red;
+	     background-color:#94BA65;
 	 }
 
-	 
+#container {
+    margin: auto;
+    width: 50%;
+    //border: 5px solid black;
+}
+
+#banner {
+    height: 260px;
+    //background: url("../static/apictionary.png") no-repeat;
+    margin: auto;
+}
+
+img.banner {
+    margin: auto;
+    align: center;
+}
+

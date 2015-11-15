@@ -5,13 +5,15 @@ import utils
 app = Flask(__name__)
 
 @app.route("/")
-@app.route("/home", methods=["GET"])
+@app.route("/home", methods=["GET", "POST"])
 def home():
     return render_template("/home.html")
 
-@app.route("/result")
+@app.route("/result", methods=["GET"])
 def result():
-    return render_template("/result_page.html")
+    print 'definitinos'
+    print utils.define(request.args.get("word"))['definitions']
+    return render_template("/result_page.html", defins=utils.define(request.args.get("word"))['definitions'], pics=utils.pictify(request.args.get("word")))
 
 
 
