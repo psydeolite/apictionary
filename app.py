@@ -15,8 +15,8 @@ def result():
     #print utils.define(request.args.get("word"))['definitions']
     query = str(request.args.get("word"))
     if (not query or
-            query.isspace() or
-            not query.isalpha()):
+            query.isspace()):
+        
         error = "The word you've entered was not found. Please try your search again."
         return render_template("result_page.html", err = error)
 

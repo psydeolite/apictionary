@@ -5,13 +5,16 @@
 
   <div id="nav">
     <ul class="header">
+      {% if query %}
       <div id="searcher">
 	<form>
 	  <li class="header">
-	    <input type="text" name="word" placeholder="Search for word"><input type="submit" value="search">
+	    <input type="text" name="word" placeholder="Search for word"><input type="submit" value="Define">
 	  </li>
 	</form>
       </div>
+      {% else %}
+      {% endif %}
     <li class="header"><a href="/">Home</a></li>
   </ul>
   </div>
