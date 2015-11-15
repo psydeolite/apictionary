@@ -165,7 +165,7 @@ def get_pic(word, def_list, i):
 
     
 
-def get_pics(def_list):
+def get_pics(def_list, defs, index):
     """
     Replaces words in list def_list with image urls
     calls: get_pic
@@ -179,7 +179,7 @@ def get_pics(def_list):
     [t.start() for t in threads]    
     [t.join() for t in threads]
     
-    return def_list
+    defs[index] = def_list
 
     
 def pictify(d):
@@ -195,11 +195,16 @@ def pictify(d):
         get_stop_words()
     
     if "definitions" in d:
-        defs = []
+        defs = [None] * len(d["definitions"])
+        threads = [None] * len(d["definitions"])
         
-        for definition in d["definitions"]:
-            def_list = definition.split()
-            defs.append(get_pics(def_list))
+        for i in range(len(d["definitions"])):
+            def_list = d["definitions"][i].split()
+            threads[i] = Thread(target = get_pics,
+                                args = (def_list, defs, i))
+
+        [t.start() for t in threads]
+        [t.join() for t in threads]
 
         d["definitions"] = defs
  
@@ -226,6 +231,6 @@ def pictify(d):
 
 #print define("family")
 
-#pic = pictify("spontaneous combustion")
-#print "\nPICTIFY:\n\n"
-#print pic
+#d = define("family")
+#print d
+#print pictify(d)
