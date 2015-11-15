@@ -11,9 +11,30 @@ def home():
 
 @app.route("/result", methods=["GET"])
 def result():
-    print 'definitinos'
-    print utils.define(request.args.get("word"))['definitions']
-    return render_template("/result_page.html", query=request.args.get("word"), defins=utils.define(request.args.get("word"))['definitions'], pics=utils.pictify(request.args.get("word")))
+    #print 'definitinos'
+    #print utils.define(request.args.get("word"))['definitions']
+    query = str(request.args.get("word"))
+    if (not query or
+            query.isspace() or
+            not query.isalpha()):
+        error = "The word you've entered was not found. Please try your search again."
+        return render_template("result_page.html", err = error)
+
+    query = query.strip()
+    query = query.lower()
+    d = utils.define(query)
+
+    if not d:
+        error = "The word you've entered was not found. Please try your search again."
+        return render_template("result_page.html", err = error)
+    
+    if "suggestions" in d:
+        return render_template("result_page.html", pics = d)
+
+
+    defins = d["definitions"]
+    pics = utils.pictify(d)
+    return render_template("/result_page.html", query=query, defins=defins, pics=pics)
 
 
 
