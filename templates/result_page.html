@@ -23,7 +23,7 @@
   <h2>This word was not found. Some suggestions:</h2>
   <ul class="">
   {% for suggs in pics["suggestions"] %}
-    <li class=""><a href={{"?word="+suggs}}>{{suggs}}</a></li>
+    <li class=""><a href={{"?word="+suggs}}>{{suggs}}</a></li><br>
   {% endfor %}
   </ul>
 {% endif %}
