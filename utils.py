@@ -34,6 +34,7 @@ def define(query):
     result = request.read()
 
     result = remove_stupid_tags(result)
+    print result
     r = xmltodict.parse(result)
     out = json.loads(json.dumps(r))
 
@@ -196,7 +197,8 @@ def pictify(word):
             defs.append(get_pics(def_list))
 
         d["definitions"] = defs
-            
+ 
+    print d
     return d
 
 
@@ -214,5 +216,6 @@ def pictify(word):
 #print define("pitato")
 #print define("ninja")
 
-print pictify("spontaneous combustion")
-
+#pic = pictify("spontaneous combustion")
+#print "\nPICTIFY:\n\n"
+#print pic
