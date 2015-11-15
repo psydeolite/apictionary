@@ -1,4 +1,5 @@
 {% include "header.html" %}
+
 <script>
   function showDef(n) {
     if (document.getElementById("def"+n).style.display == "")
@@ -20,7 +21,7 @@
     <input type="button" value="Show definition" name="def{{pics["definitions"].index(defs)+1}}" onclick="showDef({{index}})"></input>
     <div id="def{{index}}" style="display:none;">{{defins[pics["definitions"].index(defs)]}}</div>
   </h3>
-    {% for url in defs %}
+  {% for url in defs %}
       
       {% if "http" in url %}
         <img src={{url}}>
