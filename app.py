@@ -11,8 +11,9 @@ def home():
 
 @app.route("/result", methods=["GET"])
 def result():
-    print request
-    return render_template("/result_page.html", pics=utils.pictify(request.args.get("word")))
+    print 'definitinos'
+    print utils.define(request.args.get("word"))['definitions']
+    return render_template("/result_page.html", defins=utils.define(request.args.get("word"))['definitions'], pics=utils.pictify(request.args.get("word")))
 
 
 
