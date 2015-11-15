@@ -13,7 +13,7 @@ def home():
 def result():
     print 'definitinos'
     print utils.define(request.args.get("word"))['definitions']
-    return render_template("/result_page.html", defins=utils.define(request.args.get("word"))['definitions'], pics=utils.pictify(request.args.get("word")))
+    return render_template("/result_page.html", query=request.args.get("word"), defins=utils.define(request.args.get("word"))['definitions'], pics=utils.pictify(request.args.get("word")))
 
 
 
