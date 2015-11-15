@@ -1,4 +1,9 @@
+
+
+
 {% include "header.html" %}
+
+
 
 <script>
   function showDef(n) {
@@ -17,16 +22,15 @@
   
   {% set index=pics["definitions"].index(defs)+1 %}
   <br>
-  <h3> Definition {{index}}:
-    <input type="button" value="Show definition" name="def{{pics["definitions"].index(defs)+1}}" onclick="showDef({{index}})"></input>
-    <div id="def{{index}}" style="display:none;">{{defins[pics["definitions"].index(defs)]}}</div>
-  </h3>
+  <h3>{{index}}:
+    <input type="button" value="Show definition" name="def{{pics["definitions"].index(defs)+1}}" onclick="showDef({{index}})"></input></h3>
+    <div id="def{{index}}" style="display:none;"><li>{{defins[pics["definitions"].index(defs)]}}</li></div><br>
   {% for url in defs %}
       
       {% if "http" in url %}
-        <img src={{url}}>
+        <img style="vertical-align:middle;margin:10px;" src={{url}}>
       {% else %}
-	{{url}}
+	<text>{{url}}</text>
 
       {% endif %}
     {% endfor %}
@@ -37,7 +41,7 @@
   <h2>This word was not found. Some suggestions:</h2>
   <ul class="">
   {% for suggs in pics["suggestions"] %}
-    <li class=""><a href={{"?word="+suggs}}>{{suggs}}</a></li><br>
+  <li class=""><a href={{"?word="+suggs}}>{{suggs}}</a></li><br>
   {% endfor %}
   </ul>
 {% endif %}

@@ -4,9 +4,11 @@ ul[class="header"]  {
     padding: 0;
     width: 100%;
     overflow: hidden;
+   // border: 3px solid red;
 }
 
 li[class="header"] {
+   // border: 3px solid blue;
     float: right;
     padding:5px;
     padding-right:10px;
@@ -60,8 +62,9 @@ p, h {
     //border: 5px solid black;
 }
 
-#text {
-    margin: auto;
-    //border: 3px solid blue;
-    width: 80%;
+text {
+    margin: 1cm;
+   // border: 3px solid blue;
+   padding: 1cm;
+   font-family: Georgia, serif;
 }
