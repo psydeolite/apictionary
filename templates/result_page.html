@@ -2,10 +2,10 @@
 
 {% if "definitions" in pics.keys() %}
 
-  <h2>Results:</h2><br><br>
+  <h2>Results:</h2>
 
   {% for defs in pics["definitions"] %}
-    <h3>Definition {{pics["definitions"].index(defs)+1}}:</h3><br><br>
+    <br><br><h3>Definition {{pics["definitions"].index(defs)+1}}:</h3>
 
     {% for url in defs %}
       
