@@ -4,15 +4,16 @@ ul[class="header"]  {
     padding: 0;
     width: 100%;
     overflow: hidden;
-   // border: 3px solid red;
+    //border: 3px solid red;
 }
 
 li[class="header"] {
-   // border: 3px solid blue;
+    // border: 3px solid blue;
     float: right;
-    padding:5px;
+    //padding:5px;
     padding-right:10px;
-    padding-bottom: 5px;
+    padding-bottom: 13px;
+    margin-right: 20px;
 }
 
 a:link, a:visited {
@@ -21,10 +22,11 @@ a:link, a:visited {
 	    color: white;
 	    background-color: black;
 	    text-align: center;
-	    padding: 5px;
+	    //padding: 5px;
 	    text-decoration: none;
 	    font-family: Arial;
 	    //height: 15px;
+	    margin-right:41px;
 	  
 	}
 
@@ -52,7 +54,7 @@ img.banner {
 }
 
 p, h {
-    font-family: Arial;
+    //font-family: Arial;
 }
 
 #body {
