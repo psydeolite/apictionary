@@ -3,23 +3,47 @@ ul[class="header"]  {
     margin: 0;
     padding: 0;
     width: 100%;
+    overflow: hidden;
 }
 
 li[class="header"] {
-    float: left;
-    width:229px;
-    background-color:yellow;
+    float: right;
+    padding:5px;
+    padding-right:10px;
 }
 
-a {
-    width:229px;
-    display:block;
-    text-align: center;
-    text-decoration: none;
-}
+a:link, a:visited {
+	    display: block;
+	    width: 290px;
+	    color: white;
+	    background-color: black;
+	    text-align: center;
+	    padding: 5px;
+	    text-decoration: none;
+	    font-family: Arial;
+	  
+	}
 
 a:hover, a:active {
-	     background-color:red;
+	     background-color:#94BA65;
 	 }
 
-	 
+#container {
+    margin: auto;
+    width: 70%;
+    //border: 5px solid black;
+}
+#nav {
+    background-color:black;
+}
+#banner {
+    height: 260px;
+    //background: url("../static/apictionary.png") no-repeat;
+    margin: auto;
+}
+
+img.banner {
+    margin: auto;
+    align: center;
+}
+

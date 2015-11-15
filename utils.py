@@ -54,6 +54,7 @@ def define(query):
         elif isinstance(entries, dict):
             defs = get_def(entries, query)
         retval["definitions"] = defs
+    print retval
     return retval
     
 
@@ -121,7 +122,8 @@ def get_def(res, query):
                  elif ("#text" in d[entry] and
                          is_legit_def(d[entry]["#text"], query)):
                      d_append(str(d[entry]["#text"])[1:])
-                
+
+        
     return defs
 
 
