@@ -20,7 +20,6 @@ def result():
         return render_template("result_page.html", query = "Invalid")
 
     query = query.strip()
-    query = query.lower()
     d = utils.define(query)
 
     if not d:
