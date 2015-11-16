@@ -34,7 +34,6 @@ def define(query):
     result = request.read()
 
     result = remove_stupid_tags(result)
-    #print result
     r = xmltodict.parse(result)
     out = json.loads(json.dumps(r))
 
@@ -54,7 +53,6 @@ def define(query):
         elif isinstance(entries, dict):
             defs = get_def(entries, query)
         retval["definitions"] = defs
-    #print retval
     return retval
     
 
@@ -223,33 +221,4 @@ def pictify(d):
 
 
 
-#Testing     
-#print define("rose cut")
-#print define("spontaneous combustion")
-#print define("platypus")
-#print define("gallows")
-#print define("chain saw")
-#print define("centrifugal force")
 
-#print get_pic("potato")
-#print get_pic("ninja")
-#print define("pitato")
-#print define("ninja")
-
-
-#print pictify("spontaneous combustion")
-
-#print define("family")
-
-#d = define("family")
-#print d
-#print pictify(d)
-
-
-#d1 = "This is a test (what kind of test?) this kind of (test) duh"
-#d2 = "cat (d0g) chicken chicken (aaaaaaa)"
-#d3 = "(test test test)"
-
-#print remove_parens(d1)
-#print remove_parens(d2)
-#print remove_parens(d3)

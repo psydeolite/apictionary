@@ -11,8 +11,6 @@ def home():
 
 @app.route("/result", methods=["GET"])
 def result():
-    #print 'definitinos'
-    #print utils.define(request.args.get("word"))['definitions']
     query = str(request.args.get("word"))
     if (not query or
             query.isspace()):
