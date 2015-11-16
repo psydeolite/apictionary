@@ -208,7 +208,6 @@ def pictify(d):
 
         d["definitions"] = defs
  
-    #print d
     return d
 
 
