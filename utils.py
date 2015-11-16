@@ -87,12 +87,11 @@ def get_suggestions(d):
 
 def get_def(res, query):
     """
-    Finds and returns the definition for a specific entry in the dictionary
+    Finds the definition(s) for a specific entry in the dictionary and returns as a list of strings
     
-    params: res, a dictionary of the form out["entry_list"]["entry"]
-            query, the search query
-
-    returns: a list of definitions
+    calls: remove_parens
+    params: res - dictionary 
+            query - string
     """
     defs = []
     d_append = defs.append
@@ -102,7 +101,7 @@ def get_def(res, query):
         d = res["def"]["dt"]
         
         if isinstance(d, unicode):
-            d_append(str(d)[1:])
+            d_append(remove_parens(str(d)[1:]))
             return defs
 
         for entry in d:
@@ -111,16 +110,16 @@ def get_def(res, query):
             
             if (isinstance(d, list) and
                     isinstance(entry, unicode)):
-                d_append(str(entry)[1:])
+                d_append(remove_parens(str(entry)[1:]))
 
             elif (isinstance(d, dict)):
                  if (isinstance(d[entry], unicode) and
                          is_legit_def(d[entry], query)):
-                     d_append(str(d[entry])[1:])
+                     d_append(remove_parens(str(d[entry])[1:]))
                 
                  elif ("#text" in d[entry] and
                          is_legit_def(d[entry]["#text"], query)):
-                     d_append(str(d[entry]["#text"])[1:])
+                     d_append(remove_parens(str(d[entry]["#text"])[1:]))
 
         
     return defs
@@ -138,7 +137,19 @@ def is_legit_def(definition, word):
     else:
         return False
 
-    
+
+def remove_parens(defin):
+    """
+    Removes all instances of parenthesized text from string defin
+    """
+    start = defin.find("(")
+    ret = defin
+    while (start != -1):
+        end = ret.find(")")
+        ret = ret[:start] + ret[end + 2:]
+        start = ret.find("(")
+    return ret
+        
     
 def get_pic(word, def_list, i):
     """
@@ -233,3 +244,12 @@ def pictify(d):
 #d = define("family")
 #print d
 #print pictify(d)
+
+
+#d1 = "This is a test (what kind of test?) this kind of (test) duh"
+#d2 = "cat (d0g) chicken chicken (aaaaaaa)"
+#d3 = "(test test test)"
+
+#print remove_parens(d1)
+#print remove_parens(d2)
+#print remove_parens(d3)
