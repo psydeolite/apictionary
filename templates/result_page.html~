@@ -1,0 +1,62 @@
+
+
+
+{% include "header.html" %}
+
+
+
+<script>
+function showDef(n) {
+  if (document.getElementById("def"+n).style.display == "")
+    document.getElementById("def"+n).style.display = "none";
+  else
+    document.getElementById("def"+n).style.display = "";
+}
+</script>
+
+
+
+{% if err %}
+
+{{err}}
+
+
+
+{% elif pics %}
+{% if "definitions" in pics %}
+
+<h2>Results: {{query}}</h2>
+
+{% for defs in pics["definitions"] %}
+
+{% set index=pics["definitions"].index(defs)+1 %}
+<br>
+<h3> Definition {{index}}:
+  <input type="button" value="Show definition" name="def{{pics["definitions"].index(defs)+1}}" onclick="showDef({{index}})"></input>
+  <div id="def{{index}}" style="display:none;">{{defins[pics["definitions"].index(defs)]}}</div>
+</h3>
+{% for url in defs %}
+
+{% if "http" in url %}
+<img style="vertical-align:middle;margin:10px;" src={{url}}>
+{% else %}
+<text>{{url}}</text>
+
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+
+
+{% else %}
+<h2>The word you've entered isn't in the dictionary. Click on a spelling suggestion below or try again using the search bar above.</h2>
+<ul>
+  {% for suggs in pics["suggestions"] %}
+  <li><a href={{"?word="+suggs}}>{{suggs}}</a></li><br>
+  {% endfor %}
+</ul>
+{% endif %}
+
+
+
+{% endif %}
