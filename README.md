@@ -1,36 +1,35 @@
-# apictionary
+# APIctionary
 Softdev API project
 
 
-Members: Sally Bao, Mariya Gedrich, Derry Li, Milo Bernfield-Millman
+| Member    | Role |
+| --------- | ---- |
+| Sally Bao | Backend |
+| Mariya Gedrich | UX |
+| Derry Li | Leader |
+| Milo Bernfield-Millman | Middle |
 
 
-Special instructions for running:
+Description of this application:
 
-     This program requires xmltodict, so before running this you will need to type:
+APIctionary is an image dictionary that provides the user with the definition of a word in the form of pictures. Smaller words like 'a' and 'the' are kept for the sake of making the end result easier to read. Up to four definitions of the searched word are provided.
+
+If the word is not found, the application will give a list of linked suggestions.
+
+APIs used in this program:
+
+ - Merriam Webster Dictionary - http://www.dictionaryapi.com/
+
+ - Flickr - https://www.flickr.com/services/api/
+
+
+To run:
+
+     This program requires xmltodict
 
      	  pip install xmltodict
      	  python app.py
 
 
-APIs used in this program:
 
-     http://www.dictionaryapi.com/
-
-     https://www.flickr.com/services/api/
-
-
-Description of this application:
-
-     APIctionary is a dictionary website that provides the user with the definition of any word in the form of pictures. Smaller words like 'a' and 'the' aren't replaced, words are replaced by the top image that results from a search for each word on Flickr.com. Up to four definitions of the word that is searched are provided.
-
-     If the word is not found, the application will give a list of suggestions for other words with links to each defined in a new page.
-
-
-How to use this application:
-
-    After running the app there will be a home page as the index. The user enters a word to search for. On each page showing results there is a search bar in the header to change the search.
-
-
-
-Enjoy the APIctionary!
+Enjoy APIctionary!
