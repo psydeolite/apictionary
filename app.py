@@ -17,8 +17,7 @@ def result():
     if (not query or
             query.isspace()):
         
-        error = "The word you've entered was not found. Please try your search again."
-        return render_template("result_page.html", err = error)
+        return render_template("result_page.html", query = "Invalid")
 
     query = query.strip()
     query = query.lower()
@@ -26,10 +25,10 @@ def result():
 
     if not d:
         error = "The word you've entered was not found. Please try your search again."
-        return render_template("result_page.html", err = error)
+        return render_template("result_page.html", err = error, query = query)
     
     if "suggestions" in d:
-        return render_template("result_page.html", pics = d)
+        return render_template("result_page.html", pics = d, query = query)
 
 
     defins = d["definitions"]
