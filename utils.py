@@ -34,7 +34,6 @@ def define(query):
     result = request.read()
 
     result = remove_stupid_tags(result)
-    print result
     r = xmltodict.parse(result)
     out = json.loads(json.dumps(r))
 
@@ -44,7 +43,7 @@ def define(query):
     if "suggestion" in out["entry_list"]:
         defs = get_suggestions(out["entry_list"])
         retval["suggestions"] = defs 
-    else:
+    elif "entry" in out["entry_list"]:
         entries = out["entry_list"]["entry"]
         if isinstance(entries, list):
             for res in entries:
@@ -54,7 +53,6 @@ def define(query):
         elif isinstance(entries, dict):
             defs = get_def(entries, query)
         retval["definitions"] = defs
-    print retval
     return retval
     
 
@@ -87,12 +85,11 @@ def get_suggestions(d):
 
 def get_def(res, query):
     """
-    Finds and returns the definition for a specific entry in the dictionary
+    Finds the definition(s) for a specific entry in the dictionary and returns as a list of strings
     
-    params: res, a dictionary of the form out["entry_list"]["entry"]
-            query, the search query
-
-    returns: a list of definitions
+    calls: remove_parens
+    params: res - dictionary 
+            query - string
     """
     defs = []
     d_append = defs.append
@@ -102,26 +99,25 @@ def get_def(res, query):
         d = res["def"]["dt"]
         
         if isinstance(d, unicode):
-            d_append(str(d)[1:])
+            d_append(remove_parens(str(d)[1:]))
             return defs
 
         for entry in d:
-            print len(defs)
             if len(defs) >= 4:
                 break
             
             if (isinstance(d, list) and
                     isinstance(entry, unicode)):
-                d_append(str(entry)[1:])
+                d_append(remove_parens(str(entry)[1:]))
 
             elif (isinstance(d, dict)):
                  if (isinstance(d[entry], unicode) and
                          is_legit_def(d[entry], query)):
-                     d_append(str(d[entry])[1:])
+                     d_append(remove_parens(str(d[entry])[1:]))
                 
                  elif ("#text" in d[entry] and
                          is_legit_def(d[entry]["#text"], query)):
-                     d_append(str(d[entry]["#text"])[1:])
+                     d_append(remove_parens(str(d[entry]["#text"])[1:]))
 
         
     return defs
@@ -139,7 +135,19 @@ def is_legit_def(definition, word):
     else:
         return False
 
-    
+
+def remove_parens(defin):
+    """
+    Removes all instances of parenthesized text from string defin
+    """
+    start = defin.find("(")
+    ret = defin
+    while (start != -1):
+        end = ret.find(")")
+        ret = ret[:start] + ret[end + 2:]
+        start = ret.find("(")
+    return ret
+        
     
 def get_pic(word, def_list, i):
     """
@@ -166,7 +174,7 @@ def get_pic(word, def_list, i):
 
     
 
-def get_pics(def_list):
+def get_pics(def_list, defs, index):
     """
     Replaces words in list def_list with image urls
     calls: get_pic
@@ -180,13 +188,13 @@ def get_pics(def_list):
     [t.start() for t in threads]    
     [t.join() for t in threads]
     
-    return def_list
+    defs[index] = def_list
 
     
-def pictify(word):
+def pictify(d):
     """  
-    Defines string words and replaces the words in the dictionary with image urls
-    calls: define, get_pics
+    Replaces the words in the dictionary with image urls
+    calls: get_pics
     returns: a dictionary of definitions with image urls
 
     key: "definitions"     value: a list of definitions
@@ -194,41 +202,23 @@ def pictify(word):
     """
     if not stop_words:
         get_stop_words()
-
-    d = define(word)
     
     if "definitions" in d:
-        defs = []
+        defs = [None] * len(d["definitions"])
+        threads = [None] * len(d["definitions"])
         
-        for definition in d["definitions"]:
-            def_list = definition.split()
-            defs.append(get_pics(def_list))
+        for i in range(len(d["definitions"])):
+            def_list = d["definitions"][i].split()
+            threads[i] = Thread(target = get_pics,
+                                args = (def_list, defs, i))
+
+        [t.start() for t in threads]
+        [t.join() for t in threads]
 
         d["definitions"] = defs
  
-    print d
     return d
 
 
 
-#Testing     
-#print define("rose cut")
-#print define("spontaneous combustion")
-#print define("platypus")
-#print define("gallows")
-#print define("chain saw")
-#print define("centrifugal force")
 
-#print get_pic("potato")
-#print get_pic("ninja")
-#print define("pitato")
-#print define("ninja")
-
-
-#print pictify("spontaneous combustion")
-
-#print define("family")
-
-#pic = pictify("spontaneous combustion")
-#print "\nPICTIFY:\n\n"
-#print pic

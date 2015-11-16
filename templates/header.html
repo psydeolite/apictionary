@@ -1,17 +1,28 @@
 {% block head %}
-<head><link rel="stylesheet" type="text/css" href="../static/style.css"></head>
+<head>
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+  <title>APICTIONARY</title>
+</head>
 <div id="container">
-<div id="banner"><center><img class="banner" src="../static/apictionary.png" align="middle"></img></center></div>
-<ul class="header">
-  <form>
-    <li class="header">
-      <input type="text" name="word"><input type="submit" value="search">
-    </li>
-  </form>
-  <li class="header"><a href="/">Home</a></li>
-  <li class="header"><a href="/result">Result(test)</a></li>
-</ul>
-<br>
+  <div id="banner"><center><img class="banner" src="../static/apictionary.png" align="middle"></img></center></div>
+
+  <div id="nav">
+    <ul class="header">
+      {% if query %}
+      <div id="searcher">
+	<form>
+	  <li class="header">
+	    <input type="text" name="word" placeholder="Search for word"><input type="submit" value="Define">
+	  </li>
+	</form>
+      </div>
+      <li class="header"><a href="/">Home</a></li>
+      {% else %}
+      <li style="padding-right:10px;padding-bottom:11px;padding-top:13px;margin-left:280px;"><a href="/">Home</a></li>
+      {% endif %}
+  </ul>
+  </div>
+  <br>
 
 
-{% endblock head %}
+  {% endblock head %}
