@@ -44,7 +44,7 @@ def define(query):
     if "suggestion" in out["entry_list"]:
         defs = get_suggestions(out["entry_list"])
         retval["suggestions"] = defs 
-    else:
+    elif "entry" in out["entry_list"]:
         entries = out["entry_list"]["entry"]
         if isinstance(entries, list):
             for res in entries:
