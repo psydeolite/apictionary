@@ -41,6 +41,8 @@ a:hover, a:active {
 }
 #nav {
     background-color:black;
+    border-radius: 15px;
+    border: 2px solid black;
 }
 #banner {
     height: 260px;
@@ -70,3 +72,4 @@ text {
    padding: 1cm;
    font-family: Georgia, serif;
 }
+
