@@ -12,6 +12,7 @@ def home():
 @app.route("/result", methods=["GET"])
 def result():
     query = str(request.args.get("word"))
+    query = query.replace("+", " ")
     if (not query or
             query.isspace()):
         

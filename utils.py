@@ -25,8 +25,9 @@ def define(query):
     calls: get_def, remove_stupid_tags, get_suggestions
 
     key: "definitions"     value: a list of definitions
-    key: "suggestions"     value: a list of suggestions if no matches are found     """    
+    key: "suggestions"     value: a list of suggestions if no matches are found     """
     q = query.replace(" ", "+")
+        
     key = "f3815ee8-aa94-4c97-a283-fbf3cb5d2c05"
     url = "http://www.dictionaryapi.com/api/v1/references/collegiate/xml/%s?key=%s"
     url = url % (q, key)
@@ -99,7 +100,7 @@ def get_def(res, query):
         d = res["def"]["dt"]
         
         if isinstance(d, unicode):
-            d_append(remove_parens(str(d)[1:]))
+            d_append(extract(d))
             return defs
 
         for entry in d:
@@ -108,19 +109,27 @@ def get_def(res, query):
             
             if (isinstance(d, list) and
                     isinstance(entry, unicode)):
-                d_append(remove_parens(str(entry)[1:]))
+                d_append(extract(entry))
 
             elif (isinstance(d, dict)):
                  if (isinstance(d[entry], unicode) and
                          is_legit_def(d[entry], query)):
-                     d_append(remove_parens(str(d[entry])[1:]))
+                     d_append(extract(d[entry]))
                 
                  elif ("#text" in d[entry] and
                          is_legit_def(d[entry]["#text"], query)):
-                     d_append(remove_parens(str(d[entry]["#text"])[1:]))
-
+                     d_append(extract(d[entry]["#text"]))
         
     return defs
+
+
+def extract(entry):
+    ret = entry
+    if entry.startswith(":"):
+        ret = entry[1:]
+    ret = remove_parens(ret)
+    return ret
+
 
 
 def is_legit_def(definition, word):
@@ -129,7 +138,6 @@ def is_legit_def(definition, word):
     Returns True if legit
     """  
     if (len(definition) > 3 and
-            " " in definition and
             len(definition) > len(word)):
         return True
     else:
@@ -221,4 +229,12 @@ def pictify(d):
 
 
 
-
+if __name__ == "__main__":
+    #print define("potato")
+    #print define("LIFO")
+    #print define("FIFO")
+    #print define("computer science")
+    #d = define("algorithm")
+    #print d
+    #print pictify(d)
+    print define("shogun")
