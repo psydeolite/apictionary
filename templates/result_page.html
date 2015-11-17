@@ -49,8 +49,8 @@ function showDef(n) {
 <h2>The word you've entered isn't in the dictionary. Click on a spelling suggestion below or try again using the search bar above.</h2>
 <ul>
   {% for suggs in pics["suggestions"] %}
-  <li><a href={{"?word="+suggs}}>{{suggs}}</a></li><br>
-  {% endfor %}
+  <li><a href={{ "?word="+ suggs | replace(" ", "+" )}}>{{suggs}}</a></li><br>
+	{% endfor %}
 </ul>
 {% endif %}
 
